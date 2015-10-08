@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout  version="0.1.0">
+    <bannerrouter_banner_index>
+        <reference name="content">
+			<block type="slide_banner_block1/adminhtml_banner" name="test" />
+           <!-- <block type="core/template" name="banner"  template="banner/list.phtml" /> -->
+        </reference>
+    </bannerrouter_banner_index>
+	<bannerrouter_setting_index>
+        <reference name="content">
+			<block type="slide_banner_block1/adminhtml_setting" name="editname" />
+           <!--<block type="core/template" name="banner"  template="banner/list.phtml" />-->
+        </reference>
+    </bannerrouter_setting_index>
+</layout>

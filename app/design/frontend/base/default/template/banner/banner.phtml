@@ -1,0 +1,50 @@
+
+<?php
+$page_=Mage::getBlockSingleton('cms/page')->getPage()->getPageId();
+if($page_==''){
+	if (Mage::getSingleton('adminhtml/url')->getRequest()->getControllerName()=='category') {
+		$page_='09090';
+	}elseif(Mage::getSingleton('adminhtml/url')->getRequest()->getControllerName()=='product'){
+		$page_='08080';
+	}
+}
+//echo $page_;
+if($page_!=''){
+	$show = Mage::getModel('banner/bannersetting')->getCollection()->addFieldToFilter('page_id',$page_);
+	$show_in=array();
+	foreach ($show as $ccitem) {
+					$show_in[]=$ccitem['banner_id'];
+	}
+	$banners = Mage::getModel('banner/banner')->getCollection()->setOrder('banner_type', 'asc');
+	$go=array();
+	foreach($banners as $value){if(in_array($value->getId(),$show_in)){$go[]='0';}}
+	if(sizeof($go)>0){
+		
+?>
+<section class="slider">
+    <div class="container">
+      <div class="flexslider" id="mainslider">
+        <ul class="slides">
+          
+				<?php
+				foreach($banners as $value){
+					if(in_array($value->getId(),$show_in)){
+					?>
+								<li>
+									<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>slide_banner/<?php echo $value['banner_image']; ?>">
+									
+								</li>
+				<?php 
+					}
+				}
+				?>
+			</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <?php
+	}
+}
+  ?>
+  		
